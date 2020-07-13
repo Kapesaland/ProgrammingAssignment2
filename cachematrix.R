@@ -4,20 +4,23 @@
 ## Creates a "matrix" object that can cache its inverse
 
 makeCacheMatrix <- function(x = matrix()) {
-                    invm <- NULL
+                    invm <- NULL          ##variable to store inverse value
                     set <- function(y) {
                       x <<- y
                       invm <<- NULL
-                    }
+                    } ## sets value of matrix in parent environment and resets 
+                      ## the value of invm to NULL
 
-                    get <- function()x
+                    get <- function()x ## return value of matrix
                     
-                    setinverse <- function(inverse) invm <<- inverse
+                    setinverse <- function(inverse) invm <<- inverse  
+                    ##sets value of invm in parent environment
           
-                    getinverse <- function() invm
+                    getinverse <- function() invm #returns value of invm
                     
                     list(set=set, get=get, setinverse=setinverse, getinverse=
-                           getinverse)
+                           getinverse) 
+                    ## prints list that permits access to functions with the $
                   }
 
 
@@ -25,14 +28,15 @@ makeCacheMatrix <- function(x = matrix()) {
 ## matrix is unchanged inverse is retrieved from cache
 
 cacheSolve <- function(x, ...) {
-        ## Return a matrix that is the inverse of 'x'
                 invm <- x$getinverse()
                 if(!is.null(inv)){
                   message("Getting cached data...")
                   return(invm)
-                }
-                data <- x$get()
-                invm <- solve(data)
-                x$setinverse(invm)
+                } 
+                ## checks if invm has been calculated and returns its value if 
+                ## has after notifying the user
+                data <- x$get() ## retrieves matrix values
+                invm <- solve(data) ## returns the inverse of matrix
+                x$setinverse(invm) ## stores the result of the calculation 
                 invm
-              }
+              } ## Return a matrix that is the inverse of 'x'
